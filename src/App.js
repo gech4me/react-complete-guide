@@ -8,9 +8,9 @@ function App() {
     <div className="App">
       <h1>Hi, Started</h1>
       <p>This is really working</p>
-      <Person/>
-      <Person/>
-      <Person/>
+      <Person name="Getachew" age="27"/>
+      <Person name="Alemu" age="10">My hobbies: Racing </Person>
+      <Person name="John" age="28"/>
     </div>
   );
 }
