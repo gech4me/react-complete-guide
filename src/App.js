@@ -50,14 +50,9 @@ class App extends Component {
         if(this.state.showPersons) {
             persons = (
                 <div>
-                    <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>My hobbies:
-                        Racing </Person>
-                    <Person
-                        change={this.nameChangeHandler}
-                        click={this.switchNameHandler.bind(this, 'John Witch')}
-                        name={this.state.persons[0].name}
-                        age={this.state.persons[0].age}/>
-                    <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
+                    {this.state.persons.map((person) => {
+                        return <Person name={person.name} age={person.age} />
+                    })}
                 </div>
             );
         }
@@ -70,7 +65,6 @@ class App extends Component {
                     onClick={this.togglePersonHandler}>Toggle Persons
                 </button>
                 {persons}
-
             </div>
         );
     }
