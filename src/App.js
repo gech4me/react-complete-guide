@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Radium from "radium";
+import Radium, {StyleRoot} from "radium";
 import Person from './Person/Person';
 
 import './App.css';
@@ -7,9 +7,9 @@ import './App.css';
 class App extends Component {
     state = {
         persons: [
-            { id: 1,name: 'Getachew', age: 34},
-            { id: 2,name: 'Max', age: 22},
-            { id: 3,name: 'John', age: 90},
+            {id: 1, name: 'Getachew', age: 34},
+            {id: 2, name: 'Max', age: 22},
+            {id: 3, name: 'John', age: 90},
         ],
         showPersons: false,
     };
@@ -21,9 +21,9 @@ class App extends Component {
         const person = {
             ...this.state.persons[personIndex]
         };
-       person.name = event.target.value;
-       const persons = [...this.state.persons];
-       persons[personIndex] = person;
+        person.name = event.target.value;
+        const persons = [...this.state.persons];
+        persons[personIndex] = person;
 
         this.setState({
             persons: persons
@@ -31,9 +31,9 @@ class App extends Component {
     };
 
     deletePersonHandler = (personIndex) => {
-      const persons = [...this.state.persons];
-      persons.splice(personIndex, 1);
-      this.setState({persons: persons});
+        const persons = [...this.state.persons];
+        persons.splice(personIndex, 1);
+        this.setState({persons: persons});
     };
     togglePersonHandler = () => {
         this.setState({showPersons: !this.state.showPersons})
@@ -47,14 +47,14 @@ class App extends Component {
             border: '1px solid blue',
             padding: '8px',
             cursor: 'pointer',
-            ':hover' : {
-                backgroundColor : 'lightgreen',
+            ':hover': {
+                backgroundColor: 'lightgreen',
                 color: 'black'
             }
         };
 
         let persons = null;
-        if(this.state.showPersons) {
+        if (this.state.showPersons) {
             persons = (
                 <div>
                     {this.state.persons.map((person, index) => {
@@ -74,23 +74,25 @@ class App extends Component {
             }
         }
         let classes = [];
-        if(this.state.persons.length <= 2) {
+        if (this.state.persons.length <= 2) {
             classes.push('red');
         }
 
-        if(this.state.persons.length <= 1) {
+        if (this.state.persons.length <= 1) {
             classes.push('bold');
         }
         return (
-            <div className="App">
-                <h1>React Demo App</h1>
-                <p className={classes.join(' ')}>መልመጃ</p>
-                <button
-                    style={style}
-                    onClick={this.togglePersonHandler}>Toggle Persons
-                </button>
-                {persons}
-            </div>
+            <StyleRoot>
+                <div className="App">
+                    <h1>React Demo App</h1>
+                    <p className={classes.join(' ')}>መልመጃ</p>
+                    <button
+                        style={style}
+                        onClick={this.togglePersonHandler}>Toggle Persons
+                    </button>
+                    {persons}
+                </div>
+            </StyleRoot>
         );
     }
 }
