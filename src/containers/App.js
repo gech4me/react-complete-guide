@@ -1,92 +1,68 @@
 import React, {Component} from 'react';
+import Cockpit from '../components/Cockpit/Cockpit';
 import classes from './App.css';
-import Person from '../components/People/Person/Person';
+import People from '../components/People/People';
 
 class App extends Component {
     state = {
-        persons: [
+        people: [
             {id: 'asfa1', name: 'Max', age: 28},
             {id: 'vasdf1', name: 'Manu', age: 29},
             {id: 'asdf11', name: 'Stephanie', age: 26}
         ],
         otherState: 'some other value',
-        showPersons: false
-    }
+        showPeople: false
+    };
 
     nameChangedHandler = (event, id) => {
-        const personIndex = this.state.persons.findIndex(p => {
+        const personIndex = this.state.people.findIndex(p => {
             return p.id === id;
         });
 
         const person = {
-            ...this.state.persons[personIndex]
+            ...this.state.people[personIndex]
         };
-
-        // const person = Object.assign({}, this.state.persons[personIndex]);
 
         person.name = event.target.value;
 
-        const persons = [...this.state.persons];
-        persons[personIndex] = person;
+        const people = [...this.state.people];
+        people[personIndex] = person;
 
-        this.setState({persons: persons});
-    }
+        this.setState({people: people});
+    };
 
     deletePersonHandler = (personIndex) => {
-        // const persons = this.state.persons.slice();
-        const persons = [...this.state.persons];
-        persons.splice(personIndex, 1);
-        this.setState({persons: persons});
-    }
+        const people = [...this.state.people];
+        people.splice(personIndex, 1);
+        this.setState({people: people});
+    };
 
-    togglePersonsHandler = () => {
-        const doesShow = this.state.showPersons;
-        this.setState({showPersons: !doesShow});
-    }
+    togglePeopleHandler = () => {
+        const doesShow = this.state.showPeople;
+        this.setState({showPeople: !doesShow});
+    };
 
     render() {
-        let persons = null;
-        let btnClass = '';
+        let people = null;
 
-        if (this.state.showPersons) {
-            persons = (
-                <div>
-                    {this.state.persons.map((person, index) => {
-                        return (
-                            <Person
-                                key={person.id}
-                                click={() => this.deletePersonHandler(index)}
-                                name={person.name}
-                                age={person.age}
-                                changed={(event) => this.nameChangedHandler(event, person.id)}/>
-                        )
-                    })}
-                </div>
-            );
-
-            btnClass = classes.Red;
-        }
-
-        const assignedClasses = [];
-        if (this.state.persons.length <= 2) {
-            assignedClasses.push(classes.red); // classes = ['red']
-        }
-        if (this.state.persons.length <= 1) {
-            assignedClasses.push(classes.bold); // classes = ['red', 'bold']
+        if (this.state.showPeople) {
+            people = <People
+                people={this.state.people}
+                clicked={this.deletePersonHandler}
+                changed={this.nameChangedHandler}
+            />;
         }
 
         return (
             <div className={classes.App}>
-                <h1>Hi, I'm a React App</h1>
-                <p className={assignedClasses.join(' ')}>This is really working!</p>
-                <button
-                    className={btnClass}
-                    onClick={this.togglePersonsHandler}>Toggle Persons
-                </button>
-                {persons}
+                <Cockpit
+                    people={this.state.people}
+                    showPeople={this.state.showPeople}
+                    clicked={this.togglePeopleHandler}
+                />
+                {people}
             </div>
         );
-        // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
     }
 }
 
