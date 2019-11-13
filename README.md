@@ -1,5 +1,5 @@
-React Complete Guide
-Based on education course
+# React Complete Guide
+## Demo App for learning react.
 
 ## Available Scripts
 
